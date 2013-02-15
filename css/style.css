@@ -1,0 +1,11 @@
+form#getImage {
+	display:block;
+	float:left;
+	width:520px;	
+}
+#points {
+	width:500px;	
+}
+img#splain {
+	float:left;	
+}
