@@ -13,8 +13,6 @@ my $req = new CGI;
 my $pt = $req->param('points');
 my $iterations = $req->param('iterations');
 
-
-
 sub chaikin{
 	my (@points) = @_;
 	my @new_points;
@@ -37,32 +35,25 @@ my @points = split(' ',$pt);
  	@points = chaikin(@points);
  }
 
-#print join(",",@final_points);
-
 #### MAKE THE IMAGE
-   my $i = Prima::Image-> new(
-      width => 500,
-      height => 500,
-      #type   => im::BW, # same as im::bpp1 | im::GrayScale
-   );
+my $i = Prima::Image-> new(
+   width => 500,
+   height => 500,
+);
 
-   # draw something
-   $i-> begin_paint; 
-   $i-> color( cl::White);
-   #$i->lines(\@points);
-   for (my $j = 0; $j<= $#points; $j+=2){
-		if ($points[$j+3]){
-			$i->line( int $points[$j], int $points[$j+1], int $points[$j+2], int $points[$j+3] );
-			#print $points[$j].' '.$points[$j+1]." ".$points[$j+2].' '.$points[$j+3];
-		}
-   }
-   $i-> end_paint; 
+# draw 
+$i-> begin_paint; 
+$i-> color( cl::White);
+for (my $j = 0; $j<= $#points; $j+=2){
+	if ($points[$j+3]){
+		$i->line( int $points[$j], int $points[$j+1], int $points[$j+2], int $points[$j+3] );
+		#print $points[$j].' '.$points[$j+1]." ".$points[$j+2].' '.$points[$j+3];
+	}
+}
+$i-> end_paint; 
 
-   # mangle
-   #$i-> size( 64, 64);
-
-   # file operations
-   $i-> save('../test.jpg') or die "Error saving:$@\n";
-   my $rand=int(rand(100));
-   print "Content-Type: text/plain\n\n";
-   print qq(test.jpg?$rand);
+# file operations
+$i-> save('../test.jpg') or die "Error saving:$@\n";
+my $rand=int(rand(100));
+print "Content-Type: text/plain\n\n";
+print qq(test.jpg?$rand);
