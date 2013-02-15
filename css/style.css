@@ -1,4 +1,4 @@
-form#getImage {
+.formsWrap, form#getImage {
 	display:block;
 	float:left;
 	width:520px;	
@@ -6,6 +6,13 @@ form#getImage {
 #points {
 	width:500px;	
 }
-img#splain {
+.result {
 	float:left;	
+}
+.canvasWrapper {
+	display:block;
+	float:left;
+	width:500px;
+	height:500px;
+	background:#000;	
 }
