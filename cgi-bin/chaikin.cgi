@@ -10,7 +10,7 @@ $\ = "\n";
 
 my $req = new CGI;
 
-my $pt = $req->param('points');
+my $initialPoints = $req->param('points');
 my $iterations = $req->param('iterations');
 
 sub chaikin{
@@ -28,32 +28,31 @@ sub chaikin{
 	return @new_points;
 }
 
-my @points = split(' ',$pt);
+my @points = split(' ',$initialPoints);
 
 
- for (my $count = 1; $count <= $iterations; $count++) {
- 	@points = chaikin(@points);
- }
+for (my $count = 1; $count <= $iterations; $count++) {
+	@points = chaikin(@points);
+}
 
 #### MAKE THE IMAGE
-my $i = Prima::Image-> new(
+my $image = Prima::Image-> new(
    width => 500,
    height => 500,
 );
 
 # draw 
-$i-> begin_paint; 
-$i-> color( cl::White);
+$image-> begin_paint; 
+$image-> color( cl::White);
 for (my $j = 0; $j<= $#points; $j+=2){
 	if ($points[$j+3]){
-		$i->line( int $points[$j], int $points[$j+1], int $points[$j+2], int $points[$j+3] );
-		#print $points[$j].' '.$points[$j+1]." ".$points[$j+2].' '.$points[$j+3];
+		$image->line( int $points[$j], int $points[$j+1], int $points[$j+2], int $points[$j+3] );
 	}
 }
-$i-> end_paint; 
+$image-> end_paint; 
 
 # file operations
-$i-> save('../test.jpg') or die "Error saving:$@\n";
+$image-> save('../test.jpg') or die "Error saving:$@\n";
 my $rand=int(rand(100));
 print "Content-Type: text/plain\n\n";
 print qq(test.jpg?$rand);
