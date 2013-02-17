@@ -36,12 +36,14 @@
 		$('#getImage').submit(function(ev){
 			ev.preventDefault();
 				$.ajax({
-					url: '/cgi-bin/chaikin.cgi',
+					url: '/cgi-bin/parser.cgi',
 					type: 'POST',
 					data: $(this).serialize(),
-					dataType: 'text',
+					dataType: 'json',
 					success: function(data) {
-						$('#splain').attr('src', data);
+						//console.log(data);
+						$('#splain').attr('src', data.image);
+						$('#string').text(data.string);
 					}
 				});
 		});
@@ -49,12 +51,13 @@
 		$('#canvasInput').submit(function(ev){
 			ev.preventDefault();
 			$.ajax({
-					url: '/cgi-bin/chaikin.cgi',
+					url: '/cgi-bin/parser.cgi',
 					type: 'POST',
 					data: "points="+points+'&iterations='+$('#canvasIterations').val(),
-					dataType: 'text',
+					dataType: 'json',
 					success: function(data) {
-						$('#splain').attr('src', data);
+						$('#splain').attr('src', data.image);
+						$('#string').text(data.string);
 					}
 				});
 		});
@@ -87,5 +90,6 @@
 <h3>Result</h3>
 <img src="/test.jpg" alt="Splain" id="splain" />
 </div>
+<div id="string" style="clear:both; display:block;"></div>
 </body>
 </html>

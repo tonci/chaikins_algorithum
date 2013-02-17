@@ -2,7 +2,6 @@
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 use CGI;
 use Data::Dumper;
-
 use strict;
 use warnings;
 use Prima qw(Application);
